@@ -1,0 +1,88 @@
+/* src/components/portfolio/portfolio.css */
+@keyframes pf-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.15); }
+}
+@keyframes pf-spin { to { transform: rotate(360deg); } }
+@keyframes pf-blink { 50% { opacity: 0; } }
+@keyframes pf-gradient { to { background-position: 200% center; } }
+@keyframes pf-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-primary) 60%, transparent); }
+  100% { box-shadow: 0 0 0 12px transparent; }
+}
+
+.pf-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: pf-float 12s ease-in-out infinite;
+}
+
+.pf-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--d, 0ms);
+}
+.pf-reveal.pf-in { opacity: 1; transform: none; }
+
+.pf-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent),
+    var(--color-primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pf-gradient 6s linear infinite;
+}
+
+.pf-ring { position: relative; padding: 4px; border-radius: 9999px; }
+.pf-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent),
+    var(--color-primary)
+  );
+  animation: pf-spin 6s linear infinite;
+}
+.pf-ring > * { position: relative; }
+
+.pf-cursor { animation: pf-blink 1s step-end infinite; }
+
+.pf-chip { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.pf-chip:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
+
+.pf-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+.pf-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-primary);
+  box-shadow: 0 20px 40px color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+
+.pf-line { border-left: 2px solid color-mix(in oklab, var(--color-primary) 40%, transparent); }
+.pf-dot {
+  position: absolute;
+  left: calc(-2rem - 9px);
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  animation: pf-pulse 2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-blob, .pf-ring::before, .pf-gradient-text, .pf-dot, .pf-cursor { animation: none; }
+  .pf-reveal { opacity: 1; transform: none; transition: none; }
+}
