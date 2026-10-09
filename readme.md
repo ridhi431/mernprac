@@ -1,4 +1,4 @@
-# 🚀 DevFolio — Full-Stack Portfolio Builder (MERN)
+# DevFolio — Full-Stack Portfolio Builder (MERN)
 
 A modern, full-stack web application that allows developers and creators to build, customize, preview, and publish personalized portfolio websites with unique shareable links.
 
