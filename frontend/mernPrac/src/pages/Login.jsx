@@ -26,11 +26,10 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center min-h-screen bg-base-20 ">
-      <div className='aura aura-rainbow'>
-      <div className=" card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title justify-center">Login</h2>
+    <div className="flex items-center justify-center min-h-screen bg-base-200 px-4 py-8">
+      <div className="card w-full max-w-sm sm:max-w-md bg-base-100 shadow-xl border border-base-300">
+        <div className="card-body p-6 sm:p-8">
+          <h2 className="card-title justify-center text-2xl font-bold">Login</h2>
 
 {error && (
   <div role="alert" className="alert alert-error text-sm py-2">
@@ -65,7 +64,6 @@ const Login = () => {
             Don't have an account? <Link to="/signup" className="link link-primary">Signup</Link>
           </p>
         </div>
-      </div>
       </div>
     </div>
   );

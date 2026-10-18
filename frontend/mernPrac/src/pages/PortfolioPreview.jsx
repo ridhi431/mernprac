@@ -32,7 +32,7 @@ const PortfolioPreview = () => {
       <PortfolioView data={data} theme={theme} />
 
       {/* Floating toolbar */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-box bg-neutral text-neutral-content px-3 py-2 shadow-xl">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-box bg-neutral text-neutral-content px-3 py-2 shadow-xl max-w-[95vw]">
         <Link to="/create-portfolio" className="btn btn-sm btn-ghost">← Edit</Link>
         <select
           value={theme}

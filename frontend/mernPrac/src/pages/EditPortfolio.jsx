@@ -286,28 +286,28 @@ const EditPortfolio = () => {
   const nextTab = currentTabIndex >= 0 && currentTabIndex < allTabs.length - 2 ? allTabs[currentTabIndex + 1] : null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-4 sm:space-y-6">
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-base-300">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-base-300">
         <div>
           <Link to="/my-portfolios" className="btn btn-ghost btn-sm gap-2 mb-2">
             ← Back to My Portfolios
           </Link>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-extrabold">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold">
               Edit Portfolio
             </h1>
-            <span className={`badge ${portfolio.isPublic ? 'badge-success' : 'badge-ghost'}`}>
+            <span className={`badge ${portfolio.isPublic ? 'badge-success' : 'badge-ghost'} badge-sm`}>
               {portfolio.isPublic ? 'Public' : 'Private'}
             </span>
-            <span className="badge badge-outline">{portfolio.theme}</span>
+            <span className="badge badge-outline badge-sm">{portfolio.theme}</span>
           </div>
-          <p className="opacity-70 text-sm mt-1">
+          <p className="opacity-70 text-xs sm:text-sm mt-1">
             Updating {portfolio.basic?.name || 'Untitled Portfolio'}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
           {portfolio.slug && (
             <a
               href={publicUrl(portfolio.slug)}
@@ -332,8 +332,8 @@ const EditPortfolio = () => {
       {error && <div className="alert alert-error text-sm">{error}</div>}
       {successMsg && <div className="alert alert-success text-sm">{successMsg}</div>}
 
-      {/* Tab Navigation */}
-      <div className="flex flex-wrap gap-2 border-b border-base-300 pb-3">
+      {/* Tab Navigation (horizontal scroll on mobile) */}
+      <div className="flex overflow-x-auto flex-nowrap sm:flex-wrap gap-1.5 sm:gap-2 border-b border-base-300 pb-3 no-scrollbar">
         {allTabs.map((tab) => (
           <button
             key={tab.slug}
@@ -341,7 +341,7 @@ const EditPortfolio = () => {
             onClick={() => setActiveTab(tab.slug)}
             className={`btn btn-sm ${
               activeTab === tab.slug ? 'btn-primary' : 'btn-ghost'
-            } gap-2`}
+            } gap-1.5 sm:gap-2 whitespace-nowrap`}
           >
             <span>{tab.emoji}</span>
             <span>{tab.title}</span>

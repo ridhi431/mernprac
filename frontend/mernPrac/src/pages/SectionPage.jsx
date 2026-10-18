@@ -93,27 +93,27 @@ const SectionPage = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto px-2 sm:px-4">
       <Link to="/create-portfolio" className="btn btn-ghost btn-sm mb-4">
         ← All sections
       </Link>
 
       {/* Banner */}
-      <div className={`rounded-box bg-linear-to-br ${current.gradient} p-6 sm:p-8 text-white flex items-center gap-5 mb-6`}>
-        <div className="text-5xl sm:text-6xl">{current.emoji}</div>
+      <div className={`rounded-box bg-linear-to-br ${current.gradient} p-4 sm:p-8 text-white flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-5 mb-6 text-center sm:text-left`}>
+        <div className="text-4xl sm:text-6xl shrink-0">{current.emoji}</div>
         <div>
           <p className="text-xs uppercase tracking-widest opacity-80">
             Step {index + 1} of {portfolioSections.length}
           </p>
           <h1 className="text-2xl sm:text-3xl font-extrabold">{current.title}</h1>
-          <p className="opacity-90 mt-1">{current.description}</p>
+          <p className="opacity-90 mt-1 text-sm sm:text-base">{current.description}</p>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
         {/* Section navigation */}
         <aside className="lg:w-56 shrink-0">
-          <ul className="menu menu-horizontal lg:menu-vertical bg-base-200 rounded-box w-full flex-nowrap overflow-x-auto gap-1">
+          <ul className="menu menu-horizontal lg:menu-vertical bg-base-200 rounded-box w-full flex-nowrap overflow-x-auto gap-1 no-scrollbar p-2">
             {portfolioSections.map((s, i) => (
               <li key={s.slug}>
                 <Link
@@ -130,12 +130,12 @@ const SectionPage = () => {
 
         {/* Form card */}
         <div className="card bg-base-100 border border-base-300 shadow flex-1">
-          <div className="card-body gap-6">
+          <div className="card-body p-4 sm:p-8 gap-4 sm:gap-6">
             {renderForm(current.slug)}
 
-            <div className="card-actions justify-between">
+            <div className="card-actions justify-between flex-wrap gap-2 pt-2">
               {prev ? (
-                <Link to={`/create-portfolio/${prev.slug}`} className="btn">
+                <Link to={`/create-portfolio/${prev.slug}`} className="btn btn-sm sm:btn-md">
                   ← Back
                 </Link>
               ) : (
@@ -145,7 +145,7 @@ const SectionPage = () => {
                 type="button"
                 onClick={handleSave}
                 disabled={!canContinue()}
-                className="btn btn-primary"
+                className="btn btn-primary btn-sm sm:btn-md"
               >
                 {next ? 'Save & Continue →' : 'Finish'}
               </button>

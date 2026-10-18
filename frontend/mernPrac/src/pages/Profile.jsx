@@ -117,15 +117,14 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-1">My Profile</h1>
-      <p className="opacity-70 mb-6">Update your name, bio and photo.</p>
+    <div className="max-w-2xl mx-auto px-2 sm:px-4">
+      <h1 className="text-2xl sm:text-3xl font-extrabold mb-1">My Profile</h1>
+      <p className="opacity-70 mb-6 text-sm sm:text-base">Update your name, bio and photo.</p>
 
       <form onSubmit={handleSave} className="card bg-base-100 border border-base-300 shadow">
-        <div className="card-body gap-5">
-          {/* Photo preview */}
-                   {/* Photo: click to upload */}
-          <div className="flex items-center gap-4">
+        <div className="card-body p-4 sm:p-8 gap-4 sm:gap-5">
+          {/* Photo: click to upload */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
             <button
               type="button"
               onClick={() => fileRef.current?.click()}

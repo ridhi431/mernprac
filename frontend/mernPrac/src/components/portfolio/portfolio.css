@@ -73,13 +73,29 @@
 .pf-line { border-left: 2px solid color-mix(in oklab, var(--color-primary) 40%, transparent); }
 .pf-dot {
   position: absolute;
-  left: calc(-2rem - 9px);
+  left: calc(-1.5rem - 8px);
   top: 6px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 9999px;
   background: var(--color-primary);
   animation: pf-pulse 2s infinite;
+}
+
+@media (min-width: 640px) {
+  .pf-dot {
+    left: calc(-2rem - 9px);
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -45,11 +45,11 @@ const PortfolioCard = ({ p, onDelete }) => {
 
         {p.slug ? (
           <div className="mt-3">
-            <div className="flex items-center gap-2">
-              <code className="text-xs bg-base-100 border border-base-300 rounded px-2 py-1 truncate flex-1">
+            <div className="flex items-center gap-2 max-w-full">
+              <code className="text-xs bg-base-100 border border-base-300 rounded px-2 py-1 truncate flex-1 min-w-0">
                 /p/{p.slug}
               </code>
-              <button onClick={copy} className="btn btn-ghost btn-xs">
+              <button onClick={copy} className="btn btn-ghost btn-xs shrink-0">
                 {copied ? 'Copied ✓' : 'Copy'}
               </button>
             </div>
@@ -66,7 +66,7 @@ const PortfolioCard = ({ p, onDelete }) => {
           {p.updatedAt && <span>Updated {new Date(p.updatedAt).toLocaleDateString()}</span>}
         </div>
 
-        <div className="card-actions justify-end mt-auto pt-3">
+        <div className="card-actions justify-end items-center gap-2 mt-auto pt-3 flex-wrap">
           <button onClick={() => onDelete(p)} className="btn btn-ghost btn-sm text-error">
             Delete
           </button>
@@ -129,35 +129,37 @@ const MyPortfolios = () => {
 
   return (
     <div className="relative min-h-screen bg-base-100 overflow-hidden">
-      <div className="pf-blob bg-primary w-72 h-72 -top-16 -left-16" />
-      <div className="pf-blob bg-secondary w-80 h-80 bottom-0 -right-20" style={{ animationDelay: '-4s' }} />
+      <div className="pf-blob bg-primary w-72 h-72 -top-16 -left-16 pointer-events-none" />
+      <div className="pf-blob bg-secondary w-80 h-80 bottom-0 -right-20 pointer-events-none" style={{ animationDelay: '-4s' }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 space-y-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-12 space-y-6 sm:space-y-10">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
             <div>
-              <h1 className="pf-gradient-text text-4xl sm:text-5xl font-extrabold leading-tight">
+              <h1 className="pf-gradient-text text-3xl sm:text-5xl font-extrabold leading-tight">
                 My Portfolios
               </h1>
-              <p className="opacity-70 mt-1">Edit, publish and share your portfolios</p>
+              <p className="opacity-70 mt-1 text-sm sm:text-base">Edit, publish and share your portfolios</p>
             </div>
-           
+            <Link to="/create-portfolio" className="btn btn-primary btn-sm sm:btn-md shrink-0">
+              + Create Portfolio
+            </Link>
           </div>
         </Reveal>
 
-        {error && <div className="alert alert-error">{error}</div>}
+        {error && <div className="alert alert-error text-sm">{error}</div>}
 
         {list.length === 0 && !error ? (
-          <Reveal className="text-center py-20">
-            <p className="text-6xl mb-4">🚀</p>
-            <h2 className="text-2xl font-bold">Create your first portfolio</h2>
-            <p className="opacity-70 mt-2 mb-6">Get a public portfolio link in a few minutes.</p>
-            <Link to="/create-portfolio" className="btn btn-primary btn-lg">
+          <Reveal className="text-center py-12 sm:py-20 px-4">
+            <p className="text-5xl sm:text-6xl mb-4">🚀</p>
+            <h2 className="text-xl sm:text-2xl font-bold">Create your first portfolio</h2>
+            <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">Get a public portfolio link in a few minutes.</p>
+            <Link to="/create-portfolio" className="btn btn-primary btn-md sm:btn-lg w-full sm:w-auto">
               Create portfolio
             </Link>
           </Reveal>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {list.map((p, i) => (
               <Reveal key={p._id} delay={i * 100} className="h-full">
                 <PortfolioCard p={p} onDelete={setToDelete} />

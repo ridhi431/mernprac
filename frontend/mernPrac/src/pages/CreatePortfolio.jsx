@@ -43,7 +43,7 @@ const TiltCard = ({ to, children }) => {
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         style={{ transformStyle: 'preserve-3d' }}
-        className="card relative w-72 overflow-hidden bg-base-100 border border-base-300 shadow-md hover:shadow-2xl will-change-transform"
+        className="card relative w-64 sm:w-72 max-w-[85vw] overflow-hidden bg-base-100 border border-base-300 shadow-md hover:shadow-2xl will-change-transform"
       >
         {children}
         <div
@@ -94,12 +94,12 @@ const CreatePortfolio = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto px-2 sm:px-4">
       {/* Heading + arrows */}
-      <div className="flex items-end justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-extrabold">Create your portfolio</h1>
-          <p className="opacity-70 mt-1">Pick a card and fill in that section.</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold">Create your portfolio</h1>
+          <p className="opacity-70 mt-1 text-sm sm:text-base">Pick a card and fill in that section.</p>
 
           <div className="flex flex-wrap gap-2 mt-3">
             <Link to="/preview" className="btn btn-outline btn-sm">
@@ -120,14 +120,14 @@ const CreatePortfolio = () => {
           {error && <div className="alert alert-error text-sm mt-3">{error}</div>}
         </div>
 
-        <div className="hidden sm:flex gap-2">
-          <button onClick={() => scroll(-1)} className="btn btn-circle btn-outline" aria-label="previous">❮</button>
-          <button onClick={() => scroll(1)} className="btn btn-circle btn-outline" aria-label="next">❯</button>
+        <div className="flex gap-2 self-end sm:self-auto">
+          <button onClick={() => scroll(-1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label="previous">❮</button>
+          <button onClick={() => scroll(1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label="next">❯</button>
         </div>
       </div>
 
       {/* Carousel */}
-      <div ref={carouselRef} className="carousel carousel-start w-full gap-6 py-8 px-4">
+      <div ref={carouselRef} className="carousel carousel-start w-full gap-4 sm:gap-6 py-4 sm:py-8 px-2 sm:px-4">
         {portfolioSections.map((s) => (
           <div key={s.slug} className="carousel-item">
             <TiltCard to={`/create-portfolio/${s.slug}`}>
