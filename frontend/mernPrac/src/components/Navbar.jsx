@@ -41,7 +41,7 @@ const Navbar = () => {
           </label>
         )}
         <Link to="/" className="btn btn-ghost text-xl font-extrabold">
-          PortfolioGen
+          DevFolio
         </Link>
       </div>
 
