@@ -14,11 +14,17 @@ import PublicPortfolio from './pages/PublicPortfolio';
 import { PortfolioProvider } from './context/PortfolioContext';
 import PortfolioPreview from './pages/PortfolioPreview';
 import Profile from './pages/Profile';
+import EditPortfolio from './pages/EditPortfolio';
+import { Navigate } from 'react-router-dom';
+import { SettingsProvider } from './context/SettingsContext';
+import Settings from './pages/TempSettings';
 
 function App() {
   return (
     <BrowserRouter>
-      <PortfolioProvider>
+      
+        <PortfolioProvider>
+          <SettingsProvider>
         <Routes>
           {/* Public pages - Navbar + Footer */}
           <Route element={<Mainlayout />}>
@@ -40,17 +46,24 @@ function App() {
             <Route element={<Dashboardlayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/my-portfolios" element={<MyPortfolios />} />
+              <Route path="/portfolio/edit/:id" element={<EditPortfolio />} />
               <Route path="/create-portfolio" element={<CreatePortfolio />} />
               <Route path="/create-portfolio/:section" element={<SectionPage />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
 
             {/* Protected, bina sidebar */}
             <Route path="/preview" element={<PortfolioPreview />} />
           </Route>
+
+          {/* Catch-all fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </SettingsProvider>
       </PortfolioProvider>
     </BrowserRouter>
+
   );
 }
 

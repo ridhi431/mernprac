@@ -154,7 +154,7 @@ cd YOUR_REPOSITORY
    cd frontend/mernPrac
    ```
 2. Install dependencies:
-   ```bash
+   ```bash                                 
    npm install
    ```
 3. Start the Vite development server:

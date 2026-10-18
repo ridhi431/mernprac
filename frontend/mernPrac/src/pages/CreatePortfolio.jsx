@@ -76,7 +76,11 @@ const CreatePortfolio = () => {
       const token = localStorage.getItem('token');
       const res = await axios.post(
         '/api/portfolios',
-        { ...data, theme: 'light', isPublic: true },
+        {
+          ...data,
+          theme: data.theme || 'light',
+          isPublic: data.isPublic !== undefined ? data.isPublic : true,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log('Created:', res.data); // check _id and slug here

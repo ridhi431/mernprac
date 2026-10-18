@@ -1,5 +1,6 @@
 // controllers/portfolioController.js
 const Portfolio = require('../models/portfolio');
+const jwt = require('jsonwebtoken');
 
 /* ---------- helpers ---------- */
 
@@ -127,16 +128,37 @@ exports.deletePortfolio = async (req, res) => {
   }
 };
 
-// GET /api/portfolios/public/:slug  (no login needed, used by /p/:slug)
+// GET /api/portfolios/public/:slug  (accessible by public if isPublic: true, or by owner if private)
 exports.getPublicPortfolio = async (req, res) => {
   try {
-    const portfolio = await Portfolio.findOne({
-      slug: req.params.slug,
-      isPublic: true,
-    }).select('-user');
+    const portfolio = await Portfolio.findOne({ slug: req.params.slug });
     if (!portfolio) return res.status(404).json({ message: 'Portfolio not found' });
 
-    res.json(portfolio);
+    let isOwner = false;
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId || decoded.id || decoded._id;
+        if (userId && portfolio.user && portfolio.user.toString() === userId.toString()) {
+          isOwner = true;
+        }
+      } catch (e) {
+        // Token invalid or expired, continue as guest
+      }
+    }
+
+    // If private and not owner, restrict access
+    if (!portfolio.isPublic && !isOwner) {
+      return res.status(403).json({
+        message: 'This portfolio is private. Only the creator can view it.',
+      });
+    }
+
+    const data = portfolio.toObject();
+    delete data.user;
+    res.json({ ...data, isOwner });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Failed to fetch portfolio' });

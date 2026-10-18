@@ -2,6 +2,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const initialData = {
+  theme: 'light',
+  isPublic: true,
   basic: { name: '', title: '', bio: '', photo: '' },
   contact: { email: '', github: '', linkedin: '' },
   skills: [],

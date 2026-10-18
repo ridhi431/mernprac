@@ -43,18 +43,23 @@ const PortfolioCard = ({ p, onDelete }) => {
           <progress className="progress progress-primary w-full" value={percent} max="100" />
         </div>
 
-        {p.isPublic && p.slug ? (
-          <div className="flex items-center gap-2 mt-3">
-            <code className="text-xs bg-base-100 border border-base-300 rounded px-2 py-1 truncate flex-1">
-              /p/{p.slug}
-            </code>
-            <button onClick={copy} className="btn btn-ghost btn-xs">
-              {copied ? 'Copied ✓' : 'Copy'}
-            </button>
+        {p.slug ? (
+          <div className="mt-3">
+            <div className="flex items-center gap-2">
+              <code className="text-xs bg-base-100 border border-base-300 rounded px-2 py-1 truncate flex-1">
+                /p/{p.slug}
+              </code>
+              <button onClick={copy} className="btn btn-ghost btn-xs">
+                {copied ? 'Copied ✓' : 'Copy'}
+              </button>
+            </div>
+            {!p.isPublic && (
+              <p className="text-[11px] text-warning mt-1">
+                🔒 Private — Only you can view this link when logged in
+              </p>
+            )}
           </div>
-        ) : (
-          <p className="text-xs opacity-60 mt-3">Publish this portfolio to get a public link</p>
-        )}
+        ) : null}
 
         <div className="flex items-center justify-between text-xs opacity-60 mt-2">
           <span>👁 {p.views ?? 0} views</span>
@@ -65,9 +70,9 @@ const PortfolioCard = ({ p, onDelete }) => {
           <button onClick={() => onDelete(p)} className="btn btn-ghost btn-sm text-error">
             Delete
           </button>
-          {p.isPublic && p.slug && (
+          {p.slug && (
             <a href={publicUrl(p.slug)} target="_blank" rel="noreferrer" className="btn btn-outline btn-sm">
-              Open ↗
+              {p.isPublic ? 'Open ↗' : 'View (Private) ↗'}
             </a>
           )}
           <Link to={`/portfolio/edit/${p._id}`} className="btn btn-primary btn-sm">
@@ -136,9 +141,7 @@ const MyPortfolios = () => {
               </h1>
               <p className="opacity-70 mt-1">Edit, publish and share your portfolios</p>
             </div>
-            <Link to="/create-portfolio" className="btn btn-primary">
-              + Create portfolio
-            </Link>
+           
           </div>
         </Reveal>
 

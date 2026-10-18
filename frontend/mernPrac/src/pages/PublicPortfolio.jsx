@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-// Path apne project ke hisaab se adjust karo
 import PortfolioView from '../components/portfolio/PortfolioView';
 
 const PublicPortfolio = () => {
@@ -24,24 +23,50 @@ const PublicPortfolio = () => {
     load();
   }, [slug]);
 
+  useEffect(() => {
+    if (p?.theme) {
+      document.documentElement.setAttribute('data-theme', p.theme);
+    }
+    return () => {
+      const saved = localStorage.getItem('websiteTheme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+    };
+  }, [p?.theme]);
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-base-100">
         <span className="loading loading-spinner loading-lg" />
       </div>
     );
   }
 
   if (error) {
+    const isPrivate = error.toLowerCase().includes('private');
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="alert alert-error max-w-md">{error}</div>
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-base-200 text-base-content">
+        <div className="card bg-base-100 border border-base-300 max-w-md w-full shadow-xl p-8 text-center">
+          <div className="text-6xl mb-4">{isPrivate ? '🔒' : '⚠️'}</div>
+          <h2 className="text-2xl font-bold mb-2">
+            {isPrivate ? 'Private Portfolio' : 'Portfolio Not Found'}
+          </h2>
+          <p className="opacity-70 text-sm mb-6">{error}</p>
+          <div className="flex justify-center gap-3">
+            <Link to="/" className="btn btn-primary btn-sm">
+              Home
+            </Link>
+            {isPrivate && (
+              <Link to="/login" className="btn btn-outline btn-sm">
+                Login as Creator
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
 
-  // Skills agar objects ({name}) mein aaye to strings mein convert karo,
-  // kyunki PortfolioView skills ko string maan ke render karta hai
+  // Skills agar objects ({name}) mein aaye to strings mein convert karo
   const data = {
     ...p,
     skills: (p.skills || [])
@@ -49,7 +74,17 @@ const PublicPortfolio = () => {
       .filter(Boolean),
   };
 
-  return <PortfolioView data={data} theme={p.theme} />;
+  return (
+    <>
+      {!p.isPublic && (
+        <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 bg-neutral/90 text-neutral-content px-4 py-1.5 rounded-full text-xs font-semibold shadow-xl flex items-center gap-2 border border-neutral-content/20 backdrop-blur">
+          <span>🔒 Private Mode</span>
+          <span className="opacity-70">| Visible only to you (the creator)</span>
+        </div>
+      )}
+      <PortfolioView data={data} theme={p.theme} />
+    </>
+  );
 };
 
 export default PublicPortfolio;

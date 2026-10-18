@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import axios from 'axios'
 import './index.css'
+import 'daisyui/themes.css'
 import App from './App.jsx'
 
 // Har request ke saath login token bhejo

@@ -61,9 +61,7 @@ const Dashboard = () => {
               </h1>
               <p className="opacity-70 mt-1">Your portfolios at a glance</p>
             </div>
-            <Link to="/create-portfolio" className="btn btn-primary">
-              + Create portfolio
-            </Link>
+  
           </div>
         </Reveal>
 

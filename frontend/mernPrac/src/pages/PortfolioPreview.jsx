@@ -1,14 +1,31 @@
 // src/pages/PortfolioPreview.jsx
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PortfolioView from '../components/portfolio/PortfolioView';
 import { usePortfolio } from '../context/PortfolioContext';
 
-const themes = ['light', 'dark', 'cupcake', 'corporate', 'emerald', 'synthwave', 'retro', 'cyberpunk', 'dracula', 'night'];
+const themes = [
+  'light',
+  'dark',
+  'cupcake',
+  'corporate',
+  'emerald',
+  'synthwave',
+  'retro',
+  'cyberpunk',
+  'dracula',
+  'night',
+  'valentine',
+  'halloween',
+  'forest',
+  'aqua',
+  'luxury',
+  'nord',
+  'sunset',
+];
 
 const PortfolioPreview = () => {
-  const { data } = usePortfolio();
-  const [theme, setTheme] = useState('light');
+  const { data, updateSection } = usePortfolio();
+  const theme = data?.theme || 'light';
 
   return (
     <>
@@ -19,7 +36,7 @@ const PortfolioPreview = () => {
         <Link to="/create-portfolio" className="btn btn-sm btn-ghost">← Edit</Link>
         <select
           value={theme}
-          onChange={(e) => setTheme(e.target.value)}
+          onChange={(e) => updateSection('theme', e.target.value)}
           className="select select-sm select-ghost text-neutral-content"
         >
           {themes.map((t) => (
