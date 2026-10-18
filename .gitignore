@@ -18,3 +18,4 @@ dist-ssr/
 
 # Personal Interview Guides
 *Interview*.pdf
+!DevFolio_Master_Architecture_and_Interview_Guide.pdf
