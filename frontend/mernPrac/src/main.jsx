@@ -5,8 +5,10 @@ import './index.css'
 import 'daisyui/themes.css'
 import App from './App.jsx'
 
-// Base URL: Production backend URL or local proxy
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || ''
+// Base URL: Production backend on Render or local proxy in development
+axios.defaults.baseURL = import.meta.env.DEV
+  ? ''
+  : (import.meta.env.VITE_API_URL || 'https://mernprac.onrender.com')
 
 // Har request ke saath login token bhejo
 axios.interceptors.request.use((config) => {
