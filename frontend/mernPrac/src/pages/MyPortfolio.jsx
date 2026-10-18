@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../components/portfolio/portfolio.css'; // adjust path to your project
-import { Reveal, completeness, publicUrl } from './portfolioUtils'; // adjust path
+import { Reveal, completeness, publicUrl } from './PortfolioUtils'; // adjust path
 
 /* ---------- portfolio card ---------- */
 const PortfolioCard = ({ p, onDelete }) => {

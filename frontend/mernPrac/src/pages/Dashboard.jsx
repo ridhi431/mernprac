@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../components/portfolio/portfolio.css'; // adjust path to your project
-import { Reveal, Stat, completeness } from './portfolioUtils'; // adjust path
+import { Reveal, Stat, completeness } from './PortfolioUtils'; // adjust path
 
 /* Dashboard = quick overview. Full management lives in My Portfolios. */
 const Dashboard = () => {
