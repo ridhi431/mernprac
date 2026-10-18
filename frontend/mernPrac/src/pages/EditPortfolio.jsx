@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { portfolioSections } from '../data/portfolioSections';
 import PortfolioView from '../components/portfolio/PortfolioView';
-import { publicUrl } from './portfolioUtils';
+import { publicUrl } from './PortfolioUtils';
 
 const themes = [
   'light',
