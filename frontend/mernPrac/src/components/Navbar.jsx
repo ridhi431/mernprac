@@ -33,14 +33,12 @@ const Navbar = ({ onDesktopToggle }) => {
     <div className="navbar bg-base-100 shadow-sm px-2 sm:px-4">
       {/* LEFT - Hamburger (mobile, drawer toggle) + Logo */}
       <div className="navbar-start gap-1">
-        {token && (
-          <label htmlFor="dashboard-drawer" className="btn btn-ghost btn-circle btn-sm sm:btn-md lg:hidden" aria-label="Toggle menu">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
-            </svg>
-          </label>
-        )}
-        <Link to="/" className="btn btn-ghost text-lg sm:text-xl font-extrabold px-2 sm:px-4">
+        <label htmlFor="dashboard-drawer" className="btn btn-ghost btn-circle btn-sm sm:btn-md lg:hidden" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+        </label>
+        <Link to="/" className="btn btn-ghost text-lg sm:text-xl font-extrabold px-1 sm:px-4">
           DevFolio
         </Link>
       </div>

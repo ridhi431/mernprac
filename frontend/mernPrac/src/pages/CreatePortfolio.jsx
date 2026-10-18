@@ -11,6 +11,7 @@ const TiltCard = ({ to, children }) => {
   const MAX_TILT = 12;
 
   const handleMove = (e) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
     const card = cardRef.current;
     const rect = card.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;

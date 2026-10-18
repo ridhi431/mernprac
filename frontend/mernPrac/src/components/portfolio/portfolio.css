@@ -17,6 +17,7 @@
   filter: blur(80px);
   opacity: 0.35;
   animation: pf-float 12s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .pf-reveal {
