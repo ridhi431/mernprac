@@ -16,6 +16,9 @@ dist-ssr/
 *.log
 .DS_Store
 
-# Personal Interview Guides
+# Personal Prep Guides & Scripts (Local only)
 *Interview*.pdf
-!DevFolio_Master_Architecture_and_Interview_Guide.pdf
+*prep*.pdf
+*Prep*.pdf
+*.html
+*.py

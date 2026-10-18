@@ -52,8 +52,8 @@ A modern, full-stack web application designed for developers and creators to eff
 
 ## 🏗️ Architecture & Flowcharts
 
-For the complete 12-page manual with vector flowcharts, system design topology, core working mechanics, and 30+ technical interview Q&A, download:
-- 📥 **[DevFolio_Master_Architecture_and_Interview_Guide.pdf](./DevFolio_Master_Architecture_and_Interview_Guide.pdf)** *(All-in-One Master Guide)*
+For the complete engineering specification with vector flowcharts, system design topology, database models, and scalability blueprints, download:
+- 📥 **[DevFolio_Technical_Design_Document.pdf](./DevFolio_Technical_Design_Document.pdf)** *(Technical Design & Specification Document)*
 
 ```mermaid
 flowchart TD
@@ -127,10 +127,8 @@ Mernprac/
 │       │   ├── main.jsx                    # Root render & Axios interceptor
 │       │   └── index.css                   # Tailwind v4 & DaisyUI v5 themes
 │       ├── vite.config.js                  # Vite bundler & API proxy configuration
-├── DevFolio_Master_Architecture_and_Interview_Guide.pdf  # 12-page Master System Design, Flowcharts & Interview Guide
-├── MERN_Portfolio_Builder_Flowchart_and_Docs.pdf         # Architecture flowcharts PDF
-├── MERN_Portfolio_Builder_Interview_QA_Guide.pdf         # Technical QA Guide PDF
-├── LICENSE                                               # MIT Open Source License
+├── DevFolio_Technical_Design_Document.pdf  # System Architecture, Flowcharts & Technical Specification Document
+├── LICENSE                                 # MIT Open Source License
 └── README.md
 ```
 
@@ -222,12 +220,10 @@ cd mernprac
 
 ---
 
-## 📄 Documentation, Flowcharts & Interview Guide
+## 📄 Technical Specification & Architecture Document
 
-A comprehensive, all-in-one PDF manual containing complete vector architecture flowcharts, system design topology, core working mechanics, and 30+ in-depth technical interview Q&A is available directly in this repository:
-- 📥 **[Download DevFolio_Master_Architecture_and_Interview_Guide.pdf](./DevFolio_Master_Architecture_and_Interview_Guide.pdf)** *(All-in-One Master Guide)*
-- 📥 [Download Legacy Architecture Flowchart PDF](./MERN_Portfolio_Builder_Flowchart_and_Docs.pdf)
-- 📥 [Download Legacy Interview QA Guide PDF](./MERN_Portfolio_Builder_Interview_QA_Guide.pdf)
+A complete engineering specification document containing vector architecture flowcharts, system design topology, database schema models, REST API specifications, and scalability blueprints is available directly in this repository:
+- 📥 **[Download DevFolio_Technical_Design_Document.pdf](./DevFolio_Technical_Design_Document.pdf)**
 
 ---
 
