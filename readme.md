@@ -1,4 +1,4 @@
-# 🚀 PortfolioGen — Full-Stack Developer Portfolio Builder (MERN)
+# PortfolioGen — Full-Stack Developer Portfolio Builder (MERN)
 
 A modern, full-stack web application designed for developers and creators to effortlessly build, customize, edit, preview, and publish responsive developer portfolio websites with personalized shareable links and DaisyUI theme customization.
 
