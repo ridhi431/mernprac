@@ -50,10 +50,9 @@ A modern, full-stack web application designed for developers and creators to eff
 
 ---
 
-## 🏗️ Architecture & Flowcharts
+## 🏗️ Architecture & System Design
 
-For the complete engineering specification with vector flowcharts, system design topology, database models, and scalability blueprints, download:
-- 📥 **[DevFolio_Technical_Design_Document.pdf](./DevFolio_Technical_Design_Document.pdf)** *(Technical Design & Specification Document)*
+DevFolio is designed with a decoupled client-server architecture, featuring centralized token-based authentication, RESTful service layers, and schema-enforced MongoDB persistence:
 
 ```mermaid
 flowchart TD
@@ -127,7 +126,6 @@ Mernprac/
 │       │   ├── main.jsx                    # Root render & Axios interceptor
 │       │   └── index.css                   # Tailwind v4 & DaisyUI v5 themes
 │       ├── vite.config.js                  # Vite bundler & API proxy configuration
-├── DevFolio_Technical_Design_Document.pdf  # System Architecture, Flowcharts & Technical Specification Document
 ├── LICENSE                                 # MIT Open Source License
 └── README.md
 ```
@@ -218,12 +216,6 @@ cd mernprac
    ```
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
----
-
-## 📄 Technical Specification & Architecture Document
-
-A complete engineering specification document containing vector architecture flowcharts, system design topology, database schema models, REST API specifications, and scalability blueprints is available directly in this repository:
-- 📥 **[Download DevFolio_Technical_Design_Document.pdf](./DevFolio_Technical_Design_Document.pdf)**
 
 ---
 

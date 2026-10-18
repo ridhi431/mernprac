@@ -16,9 +16,7 @@ dist-ssr/
 *.log
 .DS_Store
 
-# Personal Prep Guides & Scripts (Local only)
-*Interview*.pdf
-*prep*.pdf
-*Prep*.pdf
+# Documents & Scripts (Local only)
+*.pdf
 *.html
 *.py
