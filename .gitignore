@@ -15,3 +15,6 @@ dist-ssr/
 # Logs & OS files
 *.log
 .DS_Store
+
+# Personal Interview Guides
+*Interview*.pdf
