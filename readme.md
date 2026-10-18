@@ -2,13 +2,14 @@
 
 A modern, full-stack web application designed for developers and creators to effortlessly build, customize, edit, preview, and publish responsive developer portfolio websites with personalized shareable links and DaisyUI theme customization.
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-mernprac.vercel.app-000000?style=for-the-badge&logo=vercel)](https://mernprac.vercel.app)
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-blue?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-v20+-339933?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-black?style=for-the-badge&logo=express)](https://expressjs.com/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![DaisyUI v5](https://img.shields.io/badge/DaisyUI-v5-5A0EF8?style=for-the-badge&logo=daisyui)](https://daisyui.com/)
-[![License](https://img.shields.io/badge/License-ISC-green?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
 
@@ -51,7 +52,8 @@ A modern, full-stack web application designed for developers and creators to eff
 
 ## 🏗️ Architecture & Flowcharts
 
-For a detailed PDF document with flowcharts and step-by-step lifecycle diagrams, check out [MERN_Portfolio_Builder_Flowchart_and_Docs.pdf](./MERN_Portfolio_Builder_Flowchart_and_Docs.pdf).
+For the complete 12-page manual with vector flowcharts, system design topology, core working mechanics, and 30+ technical interview Q&A, download:
+- 📥 **[DevFolio_Master_Architecture_and_Interview_Guide.pdf](./DevFolio_Master_Architecture_and_Interview_Guide.pdf)** *(All-in-One Master Guide)*
 
 ```mermaid
 flowchart TD
@@ -125,8 +127,10 @@ Mernprac/
 │       │   ├── main.jsx                    # Root render & Axios interceptor
 │       │   └── index.css                   # Tailwind v4 & DaisyUI v5 themes
 │       ├── vite.config.js                  # Vite bundler & API proxy configuration
-│       └── package.json
-├── MERN_Portfolio_Builder_Flowchart_and_Docs.pdf  # Comprehensive architecture & flowcharts PDF
+├── DevFolio_Master_Architecture_and_Interview_Guide.pdf  # 12-page Master System Design, Flowcharts & Interview Guide
+├── MERN_Portfolio_Builder_Flowchart_and_Docs.pdf         # Architecture flowcharts PDF
+├── MERN_Portfolio_Builder_Interview_QA_Guide.pdf         # Technical QA Guide PDF
+├── LICENSE                                               # MIT Open Source License
 └── README.md
 ```
 
