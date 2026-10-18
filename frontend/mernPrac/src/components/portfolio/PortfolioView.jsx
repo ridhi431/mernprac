@@ -308,7 +308,7 @@ const PortfolioView = ({ data, theme }) => {
         </Section>
       )}
 
-      <footer className="text-center py-8 opacity-60 text-sm">Built with PortfolioGen ✨</footer>
+      <footer className="text-center py-8 opacity-60 text-sm">Built with DevFolio ✨</footer>
     </div>
   );
 };

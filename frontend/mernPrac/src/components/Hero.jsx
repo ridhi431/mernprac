@@ -54,7 +54,7 @@ const Hero = () => {
 
         {/* Description */}
         <p className="max-w-2xl text-base sm:text-xl opacity-70">
-          PortfolioGen is the portfolio builder you will love!
+          DevFolio is the portfolio builder you will love!
           <br className="hidden sm:block" />
           It gives you ready-made themes to help you build and share faster.
         </p>
