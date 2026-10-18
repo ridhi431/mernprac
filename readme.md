@@ -218,10 +218,12 @@ cd mernprac
 
 ---
 
-## 📄 Documentation & Flowcharts
+## 📄 Documentation, Flowcharts & Interview Guide
 
-A complete PDF manual containing vector architecture flowcharts, navigation trees, security sequences, and API reference tables is available directly in this repository:
-- 📥 **[Download MERN_Portfolio_Builder_Flowchart_and_Docs.pdf](./MERN_Portfolio_Builder_Flowchart_and_Docs.pdf)**
+A comprehensive, all-in-one PDF manual containing complete vector architecture flowcharts, system design topology, core working mechanics, and 30+ in-depth technical interview Q&A is available directly in this repository:
+- 📥 **[Download DevFolio_Master_Architecture_and_Interview_Guide.pdf](./DevFolio_Master_Architecture_and_Interview_Guide.pdf)** *(All-in-One Master Guide)*
+- 📥 [Download Legacy Architecture Flowchart PDF](./MERN_Portfolio_Builder_Flowchart_and_Docs.pdf)
+- 📥 [Download Legacy Interview QA Guide PDF](./MERN_Portfolio_Builder_Interview_QA_Guide.pdf)
 
 ---
 
