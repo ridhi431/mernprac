@@ -1,9 +1,11 @@
 
 import { useRef } from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
+import { useSettings } from '../../context/SettingsContext';
 
 const BasicForm = () => {
   const { data, updateSection } = usePortfolio();
+  const { t, language } = useSettings();
   const basic = data.basic;
   const fileRef = useRef(null);
 
@@ -68,12 +70,12 @@ const BasicForm = () => {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file.');
+            alert(language === 'hi' ? 'कृपया इमेज फ़ाइल चुनें।' : 'Please select an image file.');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('Image must be under 5 MB.');
+            alert(language === 'hi' ? 'इमेज 5 MB से छोटी होनी चाहिए।' : 'Image must be under 5 MB.');
       return;
     }
 
@@ -85,7 +87,7 @@ const BasicForm = () => {
         photo,
       });
     } catch {
-      alert('Could not process this image.');
+          alert(language === 'hi' ? 'इस इमेज को प्रोसेस नहीं कर सके।' : 'Could not process this image.');
     }
   };
 
@@ -99,7 +101,7 @@ const BasicForm = () => {
           type="button"
           onClick={() => fileRef.current?.click()}
           className="relative group rounded-full shrink-0"
-          aria-label="Change profile photo"
+          aria-label={t.changePhoto}
         >
           <div className="avatar placeholder">
             <div className="w-20 rounded-full bg-base-300 ring ring-primary ring-offset-base-100 ring-offset-2 flex items-center justify-center overflow-hidden">
@@ -116,7 +118,7 @@ const BasicForm = () => {
           </div>
 
           <div className="absolute inset-0 rounded-full bg-black/50 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            📷 Change
+            📷 {t.changePhoto}
           </div>
         </button>
 
@@ -134,7 +136,7 @@ const BasicForm = () => {
             onClick={() => fileRef.current?.click()}
             className="btn btn-outline btn-sm"
           >
-            Upload Photo
+            {t.changePhoto}
           </button>
 
           {basic.photo && (
@@ -148,12 +150,12 @@ const BasicForm = () => {
               }
               className="btn btn-ghost btn-sm text-error"
             >
-              Remove Photo
+              {t.delete}
             </button>
           )}
 
           <p className="text-xs opacity-60">
-            JPG, PNG or other browser-supported image. Max 5 MB.
+            {t.jpgPng}
           </p>
         </div>
       </div>
@@ -163,7 +165,7 @@ const BasicForm = () => {
         value={basic.name}
         onChange={handleChange}
         className="input input-bordered w-full"
-        placeholder="Full name *"
+        placeholder={`${t.fullName} *`}
       />
 
       <input
@@ -171,7 +173,7 @@ const BasicForm = () => {
         value={basic.title}
         onChange={handleChange}
         className="input input-bordered w-full"
-        placeholder="Title (e.g. Full Stack Developer) *"
+        placeholder={language === 'hi' ? 'पद (जैसे: फुल स्टैक डेवलपर) *' : 'Title (e.g. Full Stack Developer) *'}
       />
 
       <textarea
@@ -180,7 +182,7 @@ const BasicForm = () => {
         onChange={handleChange}
         className="textarea textarea-bordered w-full"
         rows={4}
-        placeholder="Short bio"
+        placeholder={language === 'hi' ? 'संक्षिप्त परिचय' : 'Short bio'}
       />
 
     </div>

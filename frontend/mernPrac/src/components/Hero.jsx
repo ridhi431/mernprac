@@ -1,15 +1,9 @@
 // components/Hero.jsx
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../context/SettingsContext';
 
-const features = [
-  'Faster setup',
-  'Cleaner design',
-  'Customizable',
-  'Themeable',
-  'Shareable link',
-  'No coding needed',
-];
+const features = ['fasterSetup', 'cleanerDesign', 'customizable', 'themeable', 'shareableLink', 'noCoding'];
 
 const CheckIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-success" viewBox="0 0 20 20" fill="currentColor">
@@ -18,6 +12,7 @@ const CheckIcon = () => (
 );
 
 const Hero = () => {
+  const { t } = useSettings();
   const token = localStorage.getItem('token');
   const [copied, setCopied] = useState(false);
   const command = 'npx create-portfolio --name "Your Name"';
@@ -40,23 +35,23 @@ const Hero = () => {
           to={token ? '/create-portfolio' : '/signup'}
           className="badge badge-md sm:badge-lg badge-outline gap-2 hover:badge-primary transition text-xs sm:text-sm py-3 px-4 text-center max-w-[90vw] truncate"
         >
-          New: pick a theme and publish in minutes →
+          {t.heroAnnouncement}
         </Link>
 
         {/* Headline */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight max-w-3xl">
-          Faster, cleaner, easier
+          {t.heroTitle}
           <br />
           <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
-            portfolio building
+            {t.portfolioBuilding}
           </span>
         </h1>
 
         {/* Description */}
         <p className="max-w-2xl text-sm sm:text-lg md:text-xl opacity-75 px-2">
-          DevFolio is the portfolio builder you will love!
+          {t.heroDescription}
           <br className="hidden sm:block" />
-          {' '}It gives you ready-made themes to help you build and share faster.
+          {' '}{t.heroDescription2}
         </p>
 
         {/* Buttons (evenly centered on screen) */}
@@ -65,13 +60,13 @@ const Hero = () => {
             to={token ? '/create-portfolio' : '/signup'}
             className="btn btn-primary btn-md sm:btn-lg w-full sm:w-auto sm:min-w-[180px] shadow-sm"
           >
-            {token ? 'Create Portfolio' : 'Get Started'}
+            {token ? t.createPortfolio : t.getStarted}
           </Link>
           <Link
             to={token ? '/dashboard' : '/login'}
             className="btn btn-outline btn-md sm:btn-lg w-full sm:w-auto sm:min-w-[180px]"
           >
-            {token ? 'Go to Dashboard' : 'Login'}
+            {token ? t.goDashboard : t.login}
           </Link>
         </div>
 
@@ -80,16 +75,16 @@ const Hero = () => {
           <span className="opacity-50 font-mono text-sm">$</span>
           <code className="font-mono text-xs sm:text-sm truncate flex-1 min-w-0 text-left">{command}</code>
           <button onClick={handleCopy} className="btn btn-ghost btn-xs shrink-0">
-            {copied ? 'Copied ✓' : 'Copy'}
+            {copied ? t.copied : t.copy}
           </button>
         </div>
 
         {/* Feature chips */}
         <ul className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-3 mt-2 sm:mt-4 max-w-2xl mx-auto">
-          {features.map((f) => (
-            <li key={f} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base font-medium opacity-80">
+          {features.map((key) => (
+            <li key={key} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base font-medium opacity-80">
               <CheckIcon />
-              {f}
+              {t[key]}
             </li>
           ))}
         </ul>

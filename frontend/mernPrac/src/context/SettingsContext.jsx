@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import translations from '../translations';
 
 const SettingsContext = createContext(null);
 
@@ -17,6 +18,7 @@ export const SettingsProvider = ({ children }) => {
   const [language, setLanguage] = useState(
     () => localStorage.getItem('websiteLanguage') || 'en'
   );
+  const t = translations[language] || translations.en;
 
   useEffect(() => {
     localStorage.setItem('websiteTheme', theme);
@@ -34,6 +36,7 @@ export const SettingsProvider = ({ children }) => {
         setTheme,
         language,
         setLanguage,
+        t,
       }}
     >
       {children}

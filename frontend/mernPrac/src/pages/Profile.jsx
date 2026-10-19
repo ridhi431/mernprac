@@ -2,8 +2,10 @@
 // src/pages/Profile.jsx
 import { useEffect, useState,useRef} from 'react';
 import axios from 'axios';
+import { useSettings } from '../context/SettingsContext';
 
 const Profile = () => {
+    const { t } = useSettings();
 
     const fileRef = useRef(null);
 
@@ -118,8 +120,8 @@ const Profile = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-2 sm:px-4">
-      <h1 className="text-2xl sm:text-3xl font-extrabold mb-1">My Profile</h1>
-      <p className="opacity-70 mb-6 text-sm sm:text-base">Update your name, bio and photo.</p>
+      <h1 className="text-2xl sm:text-3xl font-extrabold mb-1">{t.profile}</h1>
+      <p className="opacity-70 mb-6 text-sm sm:text-base">{t.myProfileSubtitle}</p>
 
       <form onSubmit={handleSave} className="card bg-base-100 border border-base-300 shadow">
         <div className="card-body p-4 sm:p-8 gap-4 sm:gap-5">
@@ -129,7 +131,7 @@ const Profile = () => {
               type="button"
               onClick={() => fileRef.current?.click()}
               className="relative group rounded-full shrink-0"
-              aria-label="Change photo"
+              aria-label={t.changePhoto}
             >
               <div className="avatar placeholder">
                 <div className="w-24 rounded-full bg-base-300 ring ring-primary ring-offset-base-100 ring-offset-2 flex items-center justify-center overflow-hidden">
@@ -141,7 +143,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="absolute inset-0 rounded-full bg-black/50 text-white text-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                📷 Change
+                📷 {t.changePhoto}
               </div>
             </button>
 
@@ -159,7 +161,7 @@ const Profile = () => {
                 onClick={() => fileRef.current?.click()}
                 className="btn btn-outline btn-sm"
               >
-                Upload photo
+                {t.changePhoto}
               </button>
               {form.photo && (
                 <button
@@ -167,44 +169,44 @@ const Profile = () => {
                   onClick={() => setForm((f) => ({ ...f, photo: '' }))}
                   className="btn btn-ghost btn-sm text-error"
                 >
-                  Remove photo
+                  {t.delete}
                 </button>
               )}
-              <p className="text-xs opacity-60">JPG or PNG, up to 5 MB.</p>
+              <p className="text-xs opacity-60">{t.jpgPng}</p>
             </div>
           </div>
 
           <label className="form-control w-full">
-            <span className="label-text mb-1">Full name *</span>
+            <span className="label-text mb-1">{t.fullName} *</span>
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
               className="input input-bordered w-full"
-              placeholder="Your name"
+              placeholder={t.name}
               required
             />
           </label>
 
           <label className="form-control w-full">
-            <span className="label-text mb-1">Email</span>
+            <span className="label-text mb-1">{t.email}</span>
             <input
               value={email}
               disabled
               className="input input-bordered w-full"
             />
-            <span className="label-text-alt opacity-60 mt-1">Email can't be changed.</span>
+            <span className="label-text-alt opacity-60 mt-1">{t.emailCannotChange}</span>
           </label>
 
           <label className="form-control w-full">
-            <span className="label-text mb-1">Bio</span>
+            <span className="label-text mb-1">{t.bio}</span>
             <textarea
               name="bio"
               value={form.bio}
               onChange={handleChange}
               className="textarea textarea-bordered w-full"
               rows={4}
-              placeholder="Tell us a little about yourself"
+              placeholder={t.bio}
             />
           </label>
 
@@ -216,7 +218,7 @@ const Profile = () => {
 
           <div className="card-actions justify-end">
             <button type="submit" disabled={saving || !form.name.trim()} className="btn btn-primary">
-              {saving ? <span className="loading loading-spinner loading-sm" /> : 'Save changes'}
+              {saving ? <span className="loading loading-spinner loading-sm" /> : t.save}
             </button>
           </div>
         </div>

@@ -4,52 +4,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useSettings } from '../context/SettingsContext';
 
-const translations = {
-  en: {
-    title: 'Settings',
-    subtitle: 'Manage your website preferences and account.',
-    appearance: 'Appearance',
-    appearanceDesc: 'Choose how your website looks.',
-    language: 'Language',
-    languageDesc: 'Choose your preferred language.',
-    security: 'Security',
-    securityDesc: 'Update your account password.',
-    light: 'Light',
-    dark: 'Dark',
-    system: 'System',
-    current: 'Current password',
-    newPassword: 'New password',
-    confirm: 'Confirm new password',
-    change: 'Change password',
-    saving: 'Updating...',
-    success: 'Password changed successfully.',
-  },
-  hi: {
-    title: 'सेटिंग्स',
-    subtitle: 'वेबसाइट और अकाउंट की सेटिंग्स बदलें।',
-    appearance: 'थीम',
-    appearanceDesc: 'वेबसाइट का रूप चुनें।',
-    language: 'भाषा',
-    languageDesc: 'अपनी पसंदीदा भाषा चुनें।',
-    security: 'सुरक्षा',
-    securityDesc: 'अपने अकाउंट का पासवर्ड बदलें।',
-    light: 'लाइट',
-    dark: 'डार्क',
-    system: 'सिस्टम',
-    current: 'वर्तमान पासवर्ड',
-    newPassword: 'नया पासवर्ड',
-    confirm: 'नए पासवर्ड की पुष्टि करें',
-    change: 'पासवर्ड बदलें',
-    saving: 'अपडेट हो रहा है...',
-    success: 'पासवर्ड सफलतापूर्वक बदल गया।',
-  },
-};
-
 const Settings = () => {
-  const { theme, setTheme, language, setLanguage } =
+  const { theme, setTheme, language, setLanguage, t } =
     useSettings();
-
-  const t = translations[language] || translations.en;
 
   const [passwords, setPasswords] = useState({
     currentPassword: '',
@@ -117,7 +74,7 @@ const Settings = () => {
 
       setMessage({
         type: 'success',
-        text: t.success,
+        text: t.passwordChanged,
       });
     } catch (err) {
       setMessage({
@@ -134,8 +91,8 @@ const Settings = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">{t.title}</h1>
-        <p className="opacity-70 mt-1">{t.subtitle}</p>
+        <h1 className="text-3xl font-bold">{t.settings}</h1>
+        <p className="opacity-70 mt-1">{t.settingsSubtitle}</p>
       </div>
 
       {/* Appearance */}
@@ -165,7 +122,7 @@ const Settings = () => {
 
           <div className="mt-4 max-w-xs">
             <label className="label py-1">
-              <span className="label-text text-xs opacity-75 font-semibold">All themes</span>
+              <span className="label-text text-xs opacity-75 font-semibold">{t.allThemes}</span>
             </label>
             <select
               className="select select-bordered select-sm w-full"
@@ -199,7 +156,7 @@ const Settings = () => {
           </div>
 
           <p className="text-xs opacity-60 mt-3">
-            Theme applies instantly to the entire website interface.
+            {t.themeApplied}
           </p>
         </div>
       </section>
@@ -232,7 +189,7 @@ const Settings = () => {
             className="space-y-4 mt-3"
           >
             <label className="form-control w-full">
-              <span className="label-text mb-1">{t.current}</span>
+              <span className="label-text mb-1">{t.currentPassword}</span>
               <input
                 type="password"
                 name="currentPassword"
@@ -259,7 +216,7 @@ const Settings = () => {
             </label>
 
             <label className="form-control w-full">
-              <span className="label-text mb-1">{t.confirm}</span>
+              <span className="label-text mb-1">{t.confirmPassword}</span>
               <input
                 type="password"
                 name="confirmPassword"
@@ -290,7 +247,7 @@ const Settings = () => {
               disabled={saving}
               className="btn btn-primary"
             >
-              {saving ? t.saving : t.change}
+              {saving ? t.updating : t.changePassword}
             </button>
           </form>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { useSettings } from '../context/SettingsContext';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Signup = () => {
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { t } = useSettings();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +33,7 @@ const Signup = () => {
     <div className="flex items-center justify-center min-h-screen bg-base-200 px-4 py-8">
       <div className="card w-full max-w-sm sm:max-w-md bg-base-100 shadow-xl border border-base-300">
         <div className="card-body p-6 sm:p-8">
-          <h2 className="card-title justify-center text-2xl font-bold">Signup</h2>
+          <h2 className="card-title justify-center text-2xl font-bold">{t.signup}</h2>
 
         {error && (
   <div role="alert" className="alert alert-warning">
@@ -42,7 +44,7 @@ const Signup = () => {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder={t.name}
               value={formData.name}
               onChange={handleChange}
               className="input input-bordered w-full"
@@ -51,7 +53,7 @@ const Signup = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t.email}
               value={formData.email}
               onChange={handleChange}
               className="input input-bordered w-full"
@@ -60,19 +62,19 @@ const Signup = () => {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder={t.password}
               value={formData.password}
               onChange={handleChange}
               className="input input-bordered w-full"
               required
             />
             <button type="submit" className="btn btn-primary w-full">
-              Signup
+              {t.signup}
             </button>
           </form>
 
           <p className="text-center text-sm mt-2">
-            Already have an account? <Link to="/login" className="link link-primary">Login</Link>
+            {t.alreadyAccount} <Link to="/login" className="link link-primary">{t.login}</Link>
           </p>
         </div>
       </div>

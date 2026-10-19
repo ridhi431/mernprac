@@ -1,8 +1,10 @@
 // src/components/sections/ListForm.jsx
 import { usePortfolio } from '../../context/PortfolioContext';
+import { useSettings } from '../../context/SettingsContext';
 
 const ListForm = ({ sectionKey, fields, itemLabel, addLabel }) => {
   const { data, updateSection } = usePortfolio();
+  const { language } = useSettings();
   const items = data[sectionKey];
   const emptyItem = Object.fromEntries(fields.map((f) => [f.name, '']));
 
@@ -19,10 +21,10 @@ const ListForm = ({ sectionKey, fields, itemLabel, addLabel }) => {
       {items.map((item, i) => (
         <div key={i} className="border border-base-300 rounded-box p-4 flex flex-col gap-3">
           <div className="flex justify-between items-center">
-            <span className="font-semibold">{itemLabel} {i + 1}</span>
+            <span className="font-semibold">{language === 'hi' ? `${({ Project: 'प्रोजेक्ट', Experience: 'अनुभव', Education: 'शिक्षा' }[itemLabel] || itemLabel)} ${i + 1}` : `${itemLabel} ${i + 1}`}</span>
             {items.length > 1 && (
               <button type="button" onClick={() => remove(i)} className="btn btn-ghost btn-xs text-error">
-                Remove
+                {language === 'hi' ? 'हटाएँ' : 'Remove'}
               </button>
             )}
           </div>
@@ -42,7 +44,7 @@ const ListForm = ({ sectionKey, fields, itemLabel, addLabel }) => {
       ))}
 
       <button type="button" onClick={add} className="btn btn-outline btn-sm self-start">
-        + {addLabel}
+        + {language === 'hi' ? ({ 'Add project': 'प्रोजेक्ट जोड़ें', 'Add experience': 'अनुभव जोड़ें', 'Add education': 'शिक्षा जोड़ें' }[addLabel] || addLabel) : addLabel}
       </button>
     </div>
   );

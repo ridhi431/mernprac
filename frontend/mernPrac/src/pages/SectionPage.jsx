@@ -6,6 +6,7 @@ import BasicForm from '../components/sections/BasicForm';
 import ContactForm from '../components/sections/ContactForm';
 import SkillsForm from '../components/sections/SkillsForm';
 import ListForm from '../components/sections/ListForm';
+import { useSettings } from '../context/SettingsContext';
 
 const renderForm = (slug) => {
   switch (slug) {
@@ -64,6 +65,7 @@ const SectionPage = () => {
   const { section } = useParams();
   const navigate = useNavigate();
   const { data } = usePortfolio();
+  const { t, language } = useSettings();
 
   const index = portfolioSections.findIndex((s) => s.slug === section);
   const current = portfolioSections[index];
@@ -71,8 +73,8 @@ const SectionPage = () => {
   if (!current) {
     return (
       <div className="text-center py-20">
-        <p className="mb-4">Section not found.</p>
-        <Link to="/create-portfolio" className="btn btn-primary">Back to sections</Link>
+        <p className="mb-4">{t.sectionNotFound}</p>
+        <Link to="/create-portfolio" className="btn btn-primary">{t.backToSections}</Link>
       </div>
     );
   }
@@ -95,7 +97,7 @@ const SectionPage = () => {
   return (
     <div className="max-w-5xl mx-auto px-2 sm:px-4">
       <Link to="/create-portfolio" className="btn btn-ghost btn-sm mb-4">
-        ← All sections
+        ← {t.backToSections}
       </Link>
 
       {/* Banner */}
@@ -103,10 +105,10 @@ const SectionPage = () => {
         <div className="text-4xl sm:text-6xl shrink-0">{current.emoji}</div>
         <div>
           <p className="text-xs uppercase tracking-widest opacity-80">
-            Step {index + 1} of {portfolioSections.length}
+            {language === 'hi' ? `चरण ${index + 1} / ${portfolioSections.length}` : `Step ${index + 1} of ${portfolioSections.length}`}
           </p>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">{current.title}</h1>
-          <p className="opacity-90 mt-1 text-sm sm:text-base">{current.description}</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold">{language === 'hi' ? ({ basic: 'मूल जानकारी', contact: 'संपर्क', skills: 'कौशल', projects: 'प्रोजेक्ट', experience: 'अनुभव', education: 'शिक्षा' }[current.slug]) : current.title}</h1>
+          <p className="opacity-90 mt-1 text-sm sm:text-base">{language === 'hi' ? ({ basic: 'आपका नाम, पद, संक्षिप्त परिचय और प्रोफ़ाइल फोटो।', contact: 'लोग आपसे कैसे संपर्क कर सकते हैं।', skills: 'वे तकनीकें और टूल जिनके साथ आप काम करते हैं।', projects: 'लिंक के साथ अपना बेहतरीन काम दिखाएँ।', experience: 'आपकी इंटर्नशिप और नौकरियाँ।', education: 'आपका कॉलेज, स्कूल और प्रमाणपत्र।' }[current.slug]) : current.description}</p>
         </div>
       </div>
 
@@ -121,7 +123,7 @@ const SectionPage = () => {
                   className={`whitespace-nowrap ${s.slug === current.slug ? 'menu-active' : ''}`}
                 >
                   <span>{s.emoji}</span>
-                  {i + 1}. {s.title}
+                  {i + 1}. {language === 'hi' ? ({ basic: 'मूल जानकारी', contact: 'संपर्क', skills: 'कौशल', projects: 'प्रोजेक्ट', experience: 'अनुभव', education: 'शिक्षा' }[s.slug]) : s.title}
                 </Link>
               </li>
             ))}
@@ -136,7 +138,7 @@ const SectionPage = () => {
             <div className="card-actions justify-between flex-wrap gap-2 pt-2">
               {prev ? (
                 <Link to={`/create-portfolio/${prev.slug}`} className="btn btn-sm sm:btn-md">
-                  ← Back
+                  ← {language === 'hi' ? 'वापस' : 'Back'}
                 </Link>
               ) : (
                 <span />
@@ -147,7 +149,7 @@ const SectionPage = () => {
                 disabled={!canContinue()}
                 className="btn btn-primary btn-sm sm:btn-md"
               >
-                {next ? 'Save & Continue →' : 'Finish'}
+                {next ? (language === 'hi' ? 'सहेजें और आगे बढ़ें →' : 'Save & Continue →') : (language === 'hi' ? 'पूरा करें' : 'Finish')}
               </button>
             </div>
           </div>

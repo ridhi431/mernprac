@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSettings } from '../context/SettingsContext';
 
 const Navbar = ({ onDesktopToggle }) => {
+  const { t } = useSettings();
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -47,8 +49,8 @@ const Navbar = ({ onDesktopToggle }) => {
       {token && (
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-1 font-medium">
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/my-portfolios">My Portfolios</Link></li>
+            <li><Link to="/dashboard">{t.dashboard}</Link></li>
+            <li><Link to="/my-portfolios">{t.myPortfolios}</Link></li>
           </ul>
         </div>
       )}
@@ -59,11 +61,11 @@ const Navbar = ({ onDesktopToggle }) => {
           <>
             {/* Desktop direct logout button */}
             <button onClick={handleLogout} className="btn btn-secondary btn-sm hidden md:inline-flex">
-              Logout
+              {t.logout}
             </button>
             <Link to="/create-portfolio" className="btn btn-primary btn-sm">
-              <span className="hidden sm:inline">+ Create Portfolio</span>
-              <span className="sm:hidden">+ Create</span>
+              <span className="hidden sm:inline">+ {t.createPortfolio}</span>
+              <span className="sm:hidden">+ {t.createPortfolio}</span>
             </Link>
 
             <div className="dropdown dropdown-end">
@@ -79,21 +81,21 @@ const Navbar = ({ onDesktopToggle }) => {
                 </div>
               </div>
               <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg border border-base-300">
-                <li className="lg:hidden"><Link to="/dashboard">📊 Dashboard</Link></li>
-                <li className="lg:hidden"><Link to="/my-portfolios">📂 My Portfolios</Link></li>
-                <li><Link to="/profile">📄 My Profile</Link></li>
-                <li><Link to="/settings">⚙️ Settings</Link></li>
+                <li className="lg:hidden"><Link to="/dashboard">📊 {t.dashboard}</Link></li>
+                <li className="lg:hidden"><Link to="/my-portfolios">📂 {t.myPortfolios}</Link></li>
+                <li><Link to="/profile">📄 {t.profile}</Link></li>
+                <li><Link to="/settings">⚙️ {t.settings}</Link></li>
                 <div className="divider my-1 md:hidden"></div>
                 <li className="md:hidden">
-                  <button onClick={handleLogout} className="text-error font-medium">🚪 Logout</button>
+                  <button onClick={handleLogout} className="text-error font-medium">🚪 {t.logout}</button>
                 </li>
               </ul>
             </div>
           </>
         ) : (
           <>
-            <Link to="/login" className="btn btn-ghost btn-sm sm:btn-md">Login</Link>
-            <Link to="/signup" className="btn btn-primary btn-sm sm:btn-md">Get Started</Link>
+            <Link to="/login" className="btn btn-ghost btn-sm sm:btn-md">{t.login}</Link>
+            <Link to="/signup" className="btn btn-primary btn-sm sm:btn-md">{t.getStarted}</Link>
           </>
         )}
       </div>

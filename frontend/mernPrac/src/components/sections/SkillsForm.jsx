@@ -1,9 +1,11 @@
 // src/components/sections/SkillsForm.jsx
 import { useState } from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
+import { useSettings } from '../../context/SettingsContext';
 
 const SkillsForm = () => {
   const { data, updateSection } = usePortfolio();
+  const { t, language } = useSettings();
   const [input, setInput] = useState('');
 
   const addSkill = () => {
@@ -30,14 +32,14 @@ const SkillsForm = () => {
             }
           }}
           className="input input-bordered join-item w-full"
-          placeholder="Type a skill and press Enter"
+          placeholder={language === 'hi' ? 'स्किल लिखें और Enter दबाएँ' : 'Type a skill and press Enter'}
         />
-        <button type="button" onClick={addSkill} className="btn btn-primary join-item">Add</button>
+        <button type="button" onClick={addSkill} className="btn btn-primary join-item">{language === 'hi' ? 'जोड़ें' : 'Add'}</button>
       </div>
 
       <div className="flex flex-wrap gap-2">
         {data.skills.length === 0 && (
-          <p className="text-sm opacity-60">No skills added yet.</p>
+          <p className="text-sm opacity-60">{t.noSkills}</p>
         )}
         {data.skills.map((s) => (
           <span key={s} className="badge badge-lg badge-primary gap-2">

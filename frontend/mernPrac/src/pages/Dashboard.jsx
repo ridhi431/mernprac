@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../components/portfolio/portfolio.css'; // adjust path to your project
 import { Reveal, Stat, completeness } from './PortfolioUtils'; // adjust path
+import { useSettings } from '../context/SettingsContext';
 
 /* Dashboard = quick overview. Full management lives in My Portfolios. */
 const Dashboard = () => {
+  const { t, language } = useSettings();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -57,9 +59,9 @@ const Dashboard = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
             <div>
               <h1 className="pf-gradient-text text-3xl sm:text-5xl font-extrabold leading-tight">
-                Dashboard
+                {t.dashboard}
               </h1>
-              <p className="opacity-70 mt-1 text-sm sm:text-base">Your portfolios at a glance</p>
+              <p className="opacity-70 mt-1 text-sm sm:text-base">{t.dashboardSubtitle}</p>
             </div>
           </div>
         </Reveal>
@@ -69,8 +71,8 @@ const Dashboard = () => {
         {list.length === 0 && !error ? (
           <Reveal className="text-center py-12 sm:py-20 px-4">
             <p className="text-5xl sm:text-6xl mb-4">🚀</p>
-            <h2 className="text-xl sm:text-2xl font-bold">Create your first portfolio</h2>
-            <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">Get a public portfolio link in a few minutes.</p>
+            <h2 className="text-xl sm:text-2xl font-bold">{t.createFirst}</h2>
+            <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">{t.publicLinkPrompt}</p>
             
           </Reveal>
         ) : (
@@ -78,10 +80,10 @@ const Dashboard = () => {
             <>
               {/* stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
-                <Reveal><Stat label="Portfolios" value={list.length} /></Reveal>
-                <Reveal delay={100}><Stat label="Public" value={`${publicCount} / ${list.length}`} /></Reveal>
-                <Reveal delay={200}><Stat label="Total views" value={totalViews} /></Reveal>
-                <Reveal delay={300}><Stat label="Avg. completeness" value={`${avgComplete}%`} /></Reveal>
+                <Reveal><Stat label={t.portfolios} value={list.length} /></Reveal>
+                <Reveal delay={100}><Stat label={t.public} value={`${publicCount} / ${list.length}`} /></Reveal>
+                <Reveal delay={200}><Stat label={t.totalViews} value={totalViews} /></Reveal>
+                <Reveal delay={300}><Stat label={t.avgCompleteness} value={`${avgComplete}%`} /></Reveal>
               </div>
 
               {/* needs attention */}
@@ -90,9 +92,9 @@ const Dashboard = () => {
                   <div className="pf-card card bg-base-200 border border-base-300">
                     <div className="card-body p-4 sm:p-6 flex-col sm:flex-row sm:items-center gap-4">
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs sm:text-sm opacity-60">Next step</p>
+                        <p className="text-xs sm:text-sm opacity-60">{t.nextStep}</p>
                         <h3 className="font-bold text-base sm:text-lg truncate">
-                          {needsWork.p.basic?.name || 'Untitled portfolio'}: {needsWork.hint?.toLowerCase()}
+                          {needsWork.p.basic?.name || t.untitledPortfolio}: {needsWork.hint?.toLowerCase()}
                         </h3>
                         <progress
                           className="progress progress-primary w-full mt-2"
@@ -101,7 +103,7 @@ const Dashboard = () => {
                         />
                       </div>
                       <Link to={`/portfolio/edit/${needsWork.p._id}`} className="btn btn-primary btn-sm w-full sm:w-auto shrink-0">
-                        Continue editing
+                        {t.continueEditing}
                       </Link>
                     </div>
                   </div>
@@ -111,9 +113,9 @@ const Dashboard = () => {
               {/* recent */}
               <Reveal>
                 <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-lg sm:text-xl font-bold">Recently updated</h2>
+                  <h2 className="text-lg sm:text-xl font-bold">{t.recentlyUpdated}</h2>
                   <Link to="/my-portfolios" className="link link-primary text-xs sm:text-sm">
-                    View all portfolios
+                    {t.viewAllPortfolios}
                   </Link>
                 </div>
                 <div className="space-y-3">
@@ -121,18 +123,18 @@ const Dashboard = () => {
                     <div key={p._id} className="card bg-base-200 border border-base-300">
                       <div className="card-body p-4 flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold text-sm sm:text-base truncate">{p.basic?.name || 'Untitled portfolio'}</h3>
+                          <h3 className="font-semibold text-sm sm:text-base truncate">{p.basic?.name || t.untitledPortfolio}</h3>
                           <p className="text-xs opacity-60 mt-0.5">
-                            {p.updatedAt ? `Updated ${new Date(p.updatedAt).toLocaleDateString()}` : ''}
-                            {` · ${p.views ?? 0} views`}
+                            {p.updatedAt ? `${t.updated} ${new Date(p.updatedAt).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US')}` : ''}
+                            {` · ${p.views ?? 0} ${t.views}`}
                           </p>
                         </div>
                         <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
                           <span className={`badge ${p.isPublic ? 'badge-success' : 'badge-ghost'} badge-sm`}>
-                            {p.isPublic ? 'Public' : 'Private'}
+                            {p.isPublic ? t.public : t.private}
                           </span>
                           <Link to={`/portfolio/edit/${p._id}`} className="btn btn-ghost btn-sm">
-                            Edit
+                            {t.edit}
                           </Link>
                         </div>
                       </div>

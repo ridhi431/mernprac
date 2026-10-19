@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { portfolioSections } from '../data/portfolioSections';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useSettings } from '../context/SettingsContext';
 
 const TiltCard = ({ to, children }) => {
   const cardRef = useRef(null);
@@ -60,6 +61,7 @@ const CreatePortfolio = () => {
   const carouselRef = useRef(null);
   const navigate = useNavigate();
   const { data, resetDraft } = usePortfolio();
+  const { t, language } = useSettings();
   const [publishing, setPublishing] = useState(false);
   const [error, setError] = useState('');
 
@@ -99,22 +101,22 @@ const CreatePortfolio = () => {
       {/* Heading + arrows */}
       <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold">Create your portfolio</h1>
-          <p className="opacity-70 mt-1 text-sm sm:text-base">Pick a card and fill in that section.</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold">{t.createPortfolio}</h1>
+          <p className="opacity-70 mt-1 text-sm sm:text-base">{t.createPortfolioSubtitle}</p>
 
           <div className="flex flex-wrap gap-2 mt-3">
             <Link to="/preview" className="btn btn-outline btn-sm">
-              👁 Preview portfolio
+              👁 {t.previewPortfolio}
             </Link>
             <button
               onClick={handlePublish}
               disabled={!canPublish || publishing}
               className="btn btn-primary btn-sm"
             >
-              {publishing ? <span className="loading loading-spinner loading-xs" /> : '🚀 Publish'}
+              {publishing ? <span className="loading loading-spinner loading-xs" /> : `🚀 ${t.publish}`}
             </button>
             <button onClick={resetDraft} className="btn btn-ghost btn-sm text-error">
-              Clear all
+              {t.clearAll}
             </button>
           </div>
 
@@ -122,8 +124,8 @@ const CreatePortfolio = () => {
         </div>
 
         <div className="flex gap-2 self-end sm:self-auto">
-          <button onClick={() => scroll(-1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label="previous">❮</button>
-          <button onClick={() => scroll(1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label="next">❯</button>
+          <button onClick={() => scroll(-1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label={t.previous}>❮</button>
+          <button onClick={() => scroll(1)} className="btn btn-circle btn-outline btn-sm sm:btn-md" aria-label={t.next}>❯</button>
         </div>
       </div>
 
@@ -143,8 +145,8 @@ const CreatePortfolio = () => {
               </figure>
 
               <div className="card-body gap-3">
-                <h2 className="card-title">{s.title}</h2>
-                <p className="text-sm opacity-70">{s.description}</p>
+                <h2 className="card-title">{language === 'hi' ? ({ basic: 'मूल जानकारी', contact: 'संपर्क', skills: 'कौशल', projects: 'प्रोजेक्ट', experience: 'अनुभव', education: 'शिक्षा' }[s.slug]) : s.title}</h2>
+                <p className="text-sm opacity-70">{language === 'hi' ? ({ basic: 'आपका नाम, पद, संक्षिप्त परिचय और प्रोफ़ाइल फोटो।', contact: 'लोग आपसे कैसे संपर्क कर सकते हैं।', skills: 'वे तकनीकें और टूल जिनके साथ आप काम करते हैं।', projects: 'लिंक के साथ अपना बेहतरीन काम दिखाएँ।', experience: 'आपकी इंटर्नशिप और नौकरियाँ।', education: 'आपका कॉलेज, स्कूल और प्रमाणपत्र।' }[s.slug]) : s.description}</p>
 
                 <div className="flex flex-wrap gap-1">
                   {s.items.map((i) => (
@@ -153,7 +155,7 @@ const CreatePortfolio = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-2">
-                  <span className="btn btn-primary btn-sm">Add details →</span>
+                  <span className="btn btn-primary btn-sm">{t.addDetails} →</span>
                 </div>
               </div>
             </TiltCard>

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../components/portfolio/portfolio.css'; // adjust path to your project
 import { Reveal, completeness, publicUrl } from './PortfolioUtils'; // adjust path
+import { useSettings } from '../context/SettingsContext';
 
 /* ---------- portfolio card ---------- */
 const PortfolioCard = ({ p, onDelete }) => {
+  const { t, language } = useSettings();
   const [copied, setCopied] = useState(false);
   const { percent, hint } = completeness(p);
 
@@ -24,12 +26,12 @@ const PortfolioCard = ({ p, onDelete }) => {
       <div className="card-body">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className="card-title">{p.basic?.name || 'Untitled portfolio'}</h3>
+            <h3 className="card-title">{p.basic?.name || t.untitledPortfolio}</h3>
             {p.basic?.title && <p className="opacity-70 text-sm">{p.basic.title}</p>}
           </div>
           <div className="flex flex-col items-end gap-1">
             <span className={`badge ${p.isPublic ? 'badge-success' : 'badge-ghost'}`}>
-              {p.isPublic ? 'Public' : 'Private'}
+              {p.isPublic ? t.public : t.private}
             </span>
             {p.theme && <span className="badge badge-outline badge-sm">{p.theme}</span>}
           </div>
@@ -50,33 +52,33 @@ const PortfolioCard = ({ p, onDelete }) => {
                 /p/{p.slug}
               </code>
               <button onClick={copy} className="btn btn-ghost btn-xs shrink-0">
-                {copied ? 'Copied ✓' : 'Copy'}
+                {copied ? t.copied : t.copy}
               </button>
             </div>
             {!p.isPublic && (
               <p className="text-[11px] text-warning mt-1">
-                🔒 Private — Only you can view this link when logged in
+                🔒 {t.private} — {language === 'hi' ? 'लॉग इन होने पर केवल आप यह लिंक देख सकते हैं' : 'Only you can view this link when logged in'}
               </p>
             )}
           </div>
         ) : null}
 
         <div className="flex items-center justify-between text-xs opacity-60 mt-2">
-          <span>👁 {p.views ?? 0} views</span>
-          {p.updatedAt && <span>Updated {new Date(p.updatedAt).toLocaleDateString()}</span>}
+          <span>👁 {p.views ?? 0} {t.views}</span>
+          {p.updatedAt && <span>{t.updated} {new Date(p.updatedAt).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US')}</span>}
         </div>
 
         <div className="card-actions justify-end items-center gap-2 mt-auto pt-3 flex-wrap">
           <button onClick={() => onDelete(p)} className="btn btn-ghost btn-sm text-error">
-            Delete
+            {t.delete}
           </button>
           {p.slug && (
             <a href={publicUrl(p.slug)} target="_blank" rel="noreferrer" className="btn btn-outline btn-sm">
-              {p.isPublic ? 'Open ↗' : 'View (Private) ↗'}
+              {p.isPublic ? (language === 'hi' ? 'खोलें ↗' : 'Open ↗') : (language === 'hi' ? 'देखें (निजी) ↗' : 'View (Private) ↗')}
             </a>
           )}
           <Link to={`/portfolio/edit/${p._id}`} className="btn btn-primary btn-sm">
-            Edit
+            {t.edit}
           </Link>
         </div>
       </div>
@@ -86,6 +88,7 @@ const PortfolioCard = ({ p, onDelete }) => {
 
 /* ---------- main ---------- */
 const MyPortfolios = () => {
+  const { t } = useSettings();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -137,9 +140,9 @@ const MyPortfolios = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
             <div>
               <h1 className="pf-gradient-text text-3xl sm:text-5xl font-extrabold leading-tight">
-                My Portfolios
+                {t.myPortfolios}
               </h1>
-              <p className="opacity-70 mt-1 text-sm sm:text-base">Edit, publish and share your portfolios</p>
+              <p className="opacity-70 mt-1 text-sm sm:text-base">{t.portfolioListSubtitle}</p>
             </div>
           </div>
         </Reveal>
@@ -149,10 +152,10 @@ const MyPortfolios = () => {
         {list.length === 0 && !error ? (
           <Reveal className="text-center py-12 sm:py-20 px-4">
             <p className="text-5xl sm:text-6xl mb-4">🚀</p>
-            <h2 className="text-xl sm:text-2xl font-bold">Create your first portfolio</h2>
-            <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">Get a public portfolio link in a few minutes.</p>
+            <h2 className="text-xl sm:text-2xl font-bold">{t.createFirst}</h2>
+            <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">{t.publicLinkPrompt}</p>
             <Link to="/create-portfolio" className="btn btn-primary btn-md sm:btn-lg w-full sm:w-auto">
-              Create portfolio
+              {t.createPortfolio}
             </Link>
           </Reveal>
         ) : (
@@ -169,17 +172,17 @@ const MyPortfolios = () => {
       {toDelete && (
         <div className="modal modal-open">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Delete this portfolio?</h3>
+            <h3 className="font-bold text-lg">{t.deletePortfolio}</h3>
             <p className="py-4 opacity-80">
               "{toDelete.basic?.name || 'Untitled'}" will be permanently deleted and its public
               link will stop working.
             </p>
             <div className="modal-action">
               <button className="btn" onClick={() => setToDelete(null)} disabled={deleting}>
-                Cancel
+                {t.cancel}
               </button>
               <button className="btn btn-error" onClick={confirmDelete} disabled={deleting}>
-                {deleting ? <span className="loading loading-spinner loading-sm" /> : 'Delete'}
+                {deleting ? <span className="loading loading-spinner loading-sm" /> : t.delete}
               </button>
             </div>
           </div>
