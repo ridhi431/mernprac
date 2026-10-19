@@ -141,9 +141,6 @@ const MyPortfolios = () => {
               </h1>
               <p className="opacity-70 mt-1 text-sm sm:text-base">Edit, publish and share your portfolios</p>
             </div>
-            <Link to="/create-portfolio" className="btn btn-primary btn-sm sm:btn-md shrink-0">
-              + Create Portfolio
-            </Link>
           </div>
         </Reveal>
 

@@ -71,9 +71,7 @@ const Dashboard = () => {
             <p className="text-5xl sm:text-6xl mb-4">🚀</p>
             <h2 className="text-xl sm:text-2xl font-bold">Create your first portfolio</h2>
             <p className="opacity-70 mt-2 mb-6 text-sm sm:text-base">Get a public portfolio link in a few minutes.</p>
-            <Link to="/create-portfolio" className="btn btn-primary btn-md sm:btn-lg w-full sm:w-auto">
-              Create portfolio
-            </Link>
+            
           </Reveal>
         ) : (
           list.length > 0 && (
