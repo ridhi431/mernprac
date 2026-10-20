@@ -1,18 +1,10 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 
-// Create a nodemailer transporter
-const transport = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+
+
+
 
 exports.signupUser = async (req, res) => {
     try {
@@ -79,13 +71,13 @@ exports.loginUser = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const email = req.body.email?.trim().toLowerCase();
+
     if (!email) {
       return res.status(400).json({ message: 'Email is required' });
     }
 
     const user = await User.findOne({ email });
 
-    // Dono cases mein same response: account lookup reveal nahi hota.
     const responseMessage =
       'If that email is registered, a reset link has been sent.';
 
@@ -94,22 +86,37 @@ exports.forgotPassword = async (req, res) => {
     }
 
     const rawToken = crypto.randomBytes(32).toString('hex');
+
     user.resetPasswordToken = crypto
       .createHash('sha256')
       .update(rawToken)
       .digest('hex');
+
     user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
     await user.save();
 
     const resetUrl =
       `${process.env.FRONTEND_URL}/reset-password/${rawToken}`;
 
-    await transport.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Reset your password',
-      text: `Open this link within 15 minutes to reset your password: ${resetUrl}`,
+    const emailResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: process.env.EMAIL_FROM,
+        to: [user.email],
+        subject: 'Reset your password',
+        text: `Open this link within 15 minutes to reset your password: ${resetUrl}`,
+      }),
     });
+
+    const emailResult = await emailResponse.json();
+
+    if (!emailResponse.ok) {
+      throw new Error(emailResult.message || 'Resend could not send the email');
+    }
 
     return res.json({ message: responseMessage });
   } catch (err) {
