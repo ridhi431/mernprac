@@ -18,6 +18,7 @@ import EditPortfolio from './pages/EditPortfolio';
 import { Navigate } from 'react-router-dom';
 import { SettingsProvider } from './context/SettingsContext';
 import Settings from './pages/TempSettings';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
           <Route element={<Authlayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Route>
 
           {/* Published portfolio website: public, no layout, no login */}

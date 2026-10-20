@@ -1,6 +1,18 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
+// Create a nodemailer transporter
+const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 exports.signupUser = async (req, res) => {
     try {
@@ -62,4 +74,84 @@ exports.loginUser = async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Error logging in user", error: err.message });
     }
+};
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const email = req.body.email?.trim().toLowerCase();
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const user = await User.findOne({ email });
+
+    // Dono cases mein same response: account lookup reveal nahi hota.
+    const responseMessage =
+      'If that email is registered, a reset link has been sent.';
+
+    if (!user) {
+      return res.json({ message: responseMessage });
+    }
+
+    const rawToken = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(rawToken)
+      .digest('hex');
+    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+    await user.save();
+
+    const resetUrl =
+      `${process.env.FRONTEND_URL}/reset-password/${rawToken}`;
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: 'Reset your password',
+      text: `Open this link within 15 minutes to reset your password: ${resetUrl}`,
+    });
+
+    return res.json({ message: responseMessage });
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    return res.status(500).json({ message: 'Could not send reset email' });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  try {
+    const { token, password } = req.body;
+
+    if (!token || !password || password.length < 8) {
+      return res.status(400).json({
+        message: 'A valid token and password of at least 8 characters are required',
+      });
+    }
+
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(token)
+      .digest('hex');
+
+    const user = await User.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: 'Reset link is invalid or expired',
+      });
+    }
+
+    user.password = password;
+    user.resetPasswordToken = null;
+    user.resetPasswordExpires = null;
+    await user.save();
+
+    return res.json({ message: 'Password reset successfully' });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    return res.status(500).json({ message: 'Could not reset password' });
+  }
 };
