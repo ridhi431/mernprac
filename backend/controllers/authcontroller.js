@@ -104,7 +104,7 @@ exports.forgotPassword = async (req, res) => {
     const resetUrl =
       `${process.env.FRONTEND_URL}/reset-password/${rawToken}`;
 
-    await transporter.sendMail({
+    await transport.sendMail({
       from: process.env.EMAIL_USER,
       to: user.email,
       subject: 'Reset your password',
