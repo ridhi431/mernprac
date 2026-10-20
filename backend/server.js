@@ -2,13 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
+// ⬇️ Load .env BEFORE anything that reads process.env
+dotenv.config();
+
 const app = express();
 const User = require("./models/user");
 const portfolioRoutes = require("./routes/portfolioRoutes");
 const userRoutes = require('./routes/userRoutes');       // with your other requires, at the top
       
 app.use(cors());
-dotenv.config();
 app.use(express.json({ limit: '1mb' }));
 app.use('/api/users', userRoutes);   
 
