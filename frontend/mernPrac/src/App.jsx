@@ -19,6 +19,7 @@ import { Navigate } from 'react-router-dom';
 import { SettingsProvider } from './context/SettingsContext';
 import Settings from './pages/TempSettings';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
